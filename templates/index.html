@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web-Based Text Encryption Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔐 Web-Based Text Encryption Tool</h1>
+            <p class="subtitle">Secure your messages with industry-standard encryption algorithms</p>
+        </header>
+
+        <div class="card">
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab('encrypt')">Encrypt</button>
+                <button class="tab-button" onclick="switchTab('decrypt')">Decrypt</button>
+            </div>
+
+            <div id="encryptTab" class="tab-content active">
+                <div class="form-group">
+                    <label for="plainText">Plain Text</label>
+                    <textarea 
+                        id="plainText" 
+                        placeholder="Enter your text here..."
+                        rows="6"
+                    ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="encryptAlgorithm">Select Encryption Algorithm</label>
+                    <select id="encryptAlgorithm">
+                        <option value="">-- Choose an algorithm --</option>
+                        <option value="caesar">Caesar Cipher (Shift: 3)</option>
+                        <option value="aes">AES-256 (Advanced Encryption Standard)</option>
+                        <option value="des">DES (Data Encryption Standard)</option>
+                        <option value="rsa">RSA (Rivest-Shamir-Adleman)</option>
+                        <option value="base64">Base64 Encoding</option>
+                        <option value="sha256">SHA-256 Hash (One-way)</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" onclick="encryptText()">
+                    🔒 Encrypt Text
+                </button>
+
+                <div class="form-group">
+                    <label for="cipherText">Encrypted Text (Ciphertext)</label>
+                    <div class="output-container">
+                        <textarea 
+                            id="cipherText" 
+                            placeholder="Encrypted text will appear here..."
+                            rows="6"
+                            readonly
+                        ></textarea>
+                        <button class="copy-btn" onclick="copyToClipboard('cipherText')" title="Copy to clipboard">
+                            📋
+                        </button>
+                    </div>
+                </div>
+
+                <div id="encryptError" class="error-message"></div>
+                <div id="encryptSuccess" class="success-message"></div>
+            </div>
+
+            <div id="decryptTab" class="tab-content">
+                <div class="form-group">
+                    <label for="encryptedText">Encrypted Text</label>
+                    <textarea 
+                        id="encryptedText" 
+                        placeholder="Enter encrypted text here..."
+                        rows="6"
+                    ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="decryptAlgorithm">Select Decryption Algorithm</label>
+                    <select id="decryptAlgorithm">
+                        <option value="">-- Choose an algorithm --</option>
+                        <option value="caesar">Caesar Cipher (Shift: 3)</option>
+                        <option value="aes">AES-256 (Advanced Encryption Standard)</option>
+                        <option value="des">DES (Data Encryption Standard)</option>
+                        <option value="rsa">RSA (Rivest-Shamir-Adleman)</option>
+                        <option value="base64">Base64 Decoding</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" onclick="decryptText()">
+                    🔓 Decrypt Text
+                </button>
+
+                <div class="form-group">
+                    <label for="decryptedText">Decrypted Text (Plaintext)</label>
+                    <div class="output-container">
+                        <textarea 
+                            id="decryptedText" 
+                            placeholder="Decrypted text will appear here..."
+                            rows="6"
+                            readonly
+                        ></textarea>
+                        <button class="copy-btn" onclick="copyToClipboard('decryptedText')" title="Copy to clipboard">
+                            📋
+                        </button>
+                    </div>
+                </div>
+
+                <div id="decryptError" class="error-message"></div>
+                <div id="decryptSuccess" class="success-message"></div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>About the Encryption Algorithms</h2>
+            <div class="algorithm-grid">
+                <div class="algorithm-card">
+                    <h3>🔤 Caesar Cipher</h3>
+                    <p>A simple substitution cipher that shifts each letter by a fixed number of positions (default: 3).</p>
+                    <span class="badge">Symmetric</span>
+                </div>
+                <div class="algorithm-card">
+                    <h3>🔐 AES-256</h3>
+                    <p>Advanced Encryption Standard with 256-bit key. One of the most secure encryption methods.</p>
+                    <span class="badge">Symmetric</span>
+                </div>
+                <div class="algorithm-card">
+                    <h3>🗝️ DES</h3>
+                    <p>Data Encryption Standard. Legacy encryption algorithm with 56-bit key.</p>
+                    <span class="badge">Symmetric</span>
+                </div>
+                <div class="algorithm-card">
+                    <h3>🔑 RSA</h3>
+                    <p>Public-key cryptosystem widely used for secure data transmission.</p>
+                    <span class="badge">Asymmetric</span>
+                </div>
+                <div class="algorithm-card">
+                    <h3>📝 Base64</h3>
+                    <p>Encoding scheme that represents binary data in ASCII string format.</p>
+                    <span class="badge">Encoding</span>
+                </div>
+                <div class="algorithm-card">
+                    <h3>🔗 SHA-256</h3>
+                    <p>Cryptographic hash function producing a 256-bit signature. One-way operation.</p>
+                    <span class="badge">Hashing</span>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Developed for Information Security Course | 2025</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
